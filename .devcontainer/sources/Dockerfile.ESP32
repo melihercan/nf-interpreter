@@ -37,7 +37,7 @@ RUN apt-get update \
     curl \
     ninja-build \
     srecord \
-    python3 \
+    python3-full \
     python3-pip \
     nodejs \
     libffi-dev
