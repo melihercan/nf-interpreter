@@ -52,8 +52,14 @@ RUN git clone --branch R0.14b https://github.com/abbrev/fatfs.git --depth 1 ./so
 RUN git clone --branch v4.4.4 https://github.com/espressif/esp-idf --depth 1 --recursive ./sources/esp-idf
 
 # Creating static link python for pyhton3
-RUN ln -fs /usr/bin/python3 /usr/bin/python \
-    && pip3 install pyserial --break-system-packages
+#RUN ln -fs /usr/bin/python3 /usr/bin/python \
+#    && pip3 install pyserial
+RUN ln -fs /usr/bin/python3 /usr/bin/python
+RUN python3 -m venv .venv
+RUN source .venv/bin/activate
+RUN python3 -m pip install -r requirements.txt 
+RUN pip3 install pyserial
+
 
 # copy from our other container
 COPY --from=downloader /tmp/dc-extracted/cmake /usr/bin/cmake
