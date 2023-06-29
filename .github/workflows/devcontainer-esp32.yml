@@ -48,5 +48,4 @@ jobs:
         file: ${{ env.GCR_FILE }}
         push: true # Will only build if this is not here
         tags: |
-          ${{ env.GCR_IMAGE }}:${{ env.GCR_VERSION }}
           ${{ env.GCR_IMAGE }}:latest
