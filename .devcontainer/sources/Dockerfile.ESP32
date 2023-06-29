@@ -39,6 +39,7 @@ RUN apt-get update \
     srecord \
     python3 \
     python3-pip \
+    pipx \
     nodejs \
     libffi-dev
 
@@ -53,7 +54,7 @@ RUN git clone --branch v4.4.4 https://github.com/espressif/esp-idf --depth 1 --r
 
 # Creating static link python for pyhton3
 RUN ln -fs /usr/bin/python3 /usr/bin/python \
-    && pip3 install pyserial --break-system-packages
+    && pipx install pyserial
 
 # copy from our other container
 COPY --from=downloader /tmp/dc-extracted/cmake /usr/bin/cmake
@@ -63,7 +64,7 @@ ENV PATH=/usr/bin/cmake/bin:${PATH}
 # Install ESP-IDF
 ENV IDF_PATH=/sources/esp-idf
 ENV ESP_PATCH_VER=esp-2021r2-patch5-8.4.0
-RUN python -m pip install -r $IDF_PATH/requirements.txt
+RUN python -m pipx install -r $IDF_PATH/requirements.txt
 RUN $IDF_PATH/install.sh
 
 ENV PATH=$PATH:\
